@@ -6,7 +6,9 @@ Este repositório contém os resumos dos tópcicos estudados e os dois trabalhos
 
 ## Trabalhos :books:
 
+<p align="justify">
 Os enunciados de cada um dos trabalhos estão disponibilizados num arquivo PDF no início do repositório. Os três primeiros trabalhos são feitos em simuladores disponibilizados pela faculdade, enquanto o quarto e último trabalho é feito em LaTeX.
+</p>
 
 ### Trabalho 1 - Progamação em Máquina de Registradores Norma
 
