@@ -1,7 +1,7 @@
 # :mortar_board: Cadeira INF05501 - UFRGS
 
 <p align="justify">
-Este repositório contém os trabalhos práticos da cadeira Teoria da Computação, de código disciplinar INF05501, da Universidade Federal do Rio Grande do Sul (UFRGS). A cadeira consiste em estudar e compreender noções formais de computabilidade efetiva, de programa e de máquina, máquina de registradores com Máquina de Registradores Norma como exemplo, funções recursivas com Cáluculo Lambda como exemplo e solubilidade de problemas.
+Este repositório contém os trabalhos práticos da cadeira Teoria da Computação, de código disciplinar INF05501, da Universidade Federal do Rio Grande do Sul (UFRGS). A cadeira consiste em estudar e compreender noções formais de computabilidade efetiva, de programa e de máquina, máquina de registradores com Máquina de Registradores Norma como exemplo, funções recursivas com Cáluculo Lambda como exemplo, máquina de Turing e solubilidade de problemas.
 </p>
 
 ## Trabalhos :books:
