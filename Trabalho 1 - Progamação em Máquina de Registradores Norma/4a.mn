@@ -1,0 +1,39 @@
+operation zera(C){
+    1: if zero C then goto 3 else goto 2
+    2: do dec C goto 1
+}
+
+operation transfere(A, B){
+    1: if zero A then goto 0 else goto 2
+    2: do dec A goto 3
+    3: do inc B goto 1
+}
+
+// A operação soma trabalha junto com a operação série para computar a sequência da questão.
+
+operation soma(A,B){
+    1: do zera(C) goto 2
+    2: if zero B then goto 6 else goto 3
+    3: do dec B goto 4
+    4: do inc A goto 5
+    5: do inc C goto 2
+    6: do transfere(A, B) goto 7
+    7: do transfere(C, A) goto 0
+}
+
+// A operação série trabalha junto com a operação soma para computar a sequência da questão.
+
+operation serie(X, A, B){
+    1: do dec X goto 2
+    2: if zero X then goto 0 else goto 3
+    3: do soma(A, B) goto 1
+}
+
+main {
+    1: do add A 2 goto 2
+    2: do add B 1 goto 3
+    3: if zero X then goto 6 else goto 4
+    4: do serie(X, A, B) goto 5
+    5: do transfere(B, Y) goto 0
+    6: do transfere(A, Y) goto 0
+}

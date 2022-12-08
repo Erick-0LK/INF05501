@@ -1,0 +1,218 @@
+\documentclass{article}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\pagestyle{fancy}
+\lhead{INF05501}
+\rhead{Trabalho 4 - Redução de Problemas}
+
+\begin{document}
+
+\begin{center}
+
+    \vspace*{-11mm}
+    \textbf{\large{Questão 1}}
+    \vspace*{-4.8mm}
+
+\end{center}
+
+\noindent\rule{\textwidth}{0.5pt}
+
+\bigskip
+
+Considere os seguinte problemas de decisão para a elaboração da redução e para a resolução da questão:
+
+\medskip
+
+\begin{itemize}
+
+    \item Problema: Problema da Parada.
+    \item Entrada: um par $(M, w)$, onde $M$ é uma máquina de Turing sobre o alfabeto $\Sigma$ e $w \in \Sigma ^*$.
+    \item Pergunta: $w \in$ ACEITA($M$) $\cup$ REJEITA($M$)?
+    
+\end{itemize}
+
+\medskip
+
+\begin{itemize}
+
+    \item Problema: Problema da Aceitação da Palavra Vazia.
+    \item Entrada: uma máquina de Turing $M$ sobre alfabeto $\Sigma$.
+    \item Pergunta: $\varepsilon \in$ ACEITA($M$)?
+    
+\end{itemize}
+
+\medskip
+
+Prove que o Problema da Aceitação da Palavra Vazia é um problema indecidível através de uma redução do Problema da Parada.
+
+\bigskip
+
+\noindent\rule{\textwidth}{0.5pt}
+
+\bigskip
+
+Teorema: Problema da Aceitação da Palavra Vazia, problema PAPV, é um problema indecidível. Usaremos o Problema da Parada, problema PP.
+
+\medskip
+
+$r$: Problema da Parada $\Longrightarrow$ Problema da Aceitação da Palavra Vazia, sendo que Problema da Parada é indecidível.
+
+\medskip
+
+A redução $r$ recebe uma instância $(M, w)$ do Problema da Parada e retorna uma instância do Problema da Aceitação da Palavra Vazia $r(M, w) = M'$ tal que $M'$ é uma máquina de Turing que segue um algoritmo segundo os passos mostrados abaixo:
+
+\smallskip
+
+1. Apague $t$ da fita, volte para o começo, escreva w na fita e volte para o começo. Então, avance para o passo dois.
+
+\smallskip
+
+2. Simule $M$ com a entrada $w$. Caso a simulação pare, tanto aceitando quanto rejeitando, aceite.
+
+\medskip
+
+$\bullet$ Vamos supor que $(M, w) \in Y(PP)$. Consequentemente, como a instância pertence à $Y(PP)$, temos que a simulação aceita $\varepsilon$ e $r(M, w) = M’ \in Y(PAPV)$.
+
+\smallskip
+
+$\bullet$ Vamos supor que $(M, w) \in N(PP)$. Consequentemente, como a instância pertence à $N(PP)$, temos que a simulação entra em loop infinito ao receber a entrada $\varepsilon$ e $r(M, w) = M’ \in N(PAPV)$.
+
+\medskip
+
+Como a redução feita tem Problema da Aceitação da Palavra Vazia como o problema alvo e Problema da Parada, indecidível, como o problema fonte, temos que Problema da Aceitação da Palavra Vazia também, é indecidível.
+
+\pagebreak
+
+\begin{center}
+
+    \vspace*{-11mm}
+    \textbf{\large{Questão 2}}
+    \vspace*{-4.8mm}
+
+\end{center}
+
+\noindent\rule{\textwidth}{0.5pt}
+
+\bigskip
+
+Considere os seguinte problemas de decisão para a elaboração da redução e para a resolução da questão:
+
+\medskip
+
+\begin{itemize}
+
+    \item Problema: Problema da Aceitação da Palavra Vazia.
+    \item Entrada: um máquina de Turing $M$ sobre o alfabeto $\Sigma$.
+    \item Pergunta: $\varepsilon \in$ ACEITA($M$)?
+    
+\end{itemize}
+
+\medskip
+
+\begin{itemize}
+
+    \item Problema: Problema da Totalidade.
+    \item Entrada: uma máquina de Turing $M$ sobre alfabeto $\Sigma$.
+    \item Pergunta: A função computada $< M > \Sigma ^* \to \Sigma ^*$ é total?
+    
+\end{itemize}
+
+\medskip
+
+Escreva uma redução válida do Problema da Aceitação da Palavra Vazia para o Problema da Totalidade.
+
+\bigskip
+
+\noindent\rule{\textwidth}{0.5pt}
+
+\bigskip
+
+Teorema: Problema da Totalidade, problema PT, é um problema indecidível. Usaremos o Problema da Aceitação da Palavra Vazia, problema PAPV.
+
+\medskip
+
+$r$: Problema da Aceitação da Palavra Vazia $\Longrightarrow$  Problema da Totalidade, sendo que Problema da Aceitação da Palavra Vazia é indecidível.
+
+\medskip
+
+A redução $r$ recebe uma instância $M$ do Problema da Aceitação da Palavra Vazia e retorna uma instância do Problema da Aceitação da Palavra Vazia $r(M) = M'$ tal que $M'$ é uma máquina de Turing que segue um algoritmo segundo os passos mostrados abaixo:
+
+\smallskip
+
+1. Apague $t$ da fita e volte para o começo. Então, avance para o passo dois.
+
+\smallskip
+
+2. Simule $M$, transformando rejeição em loop infinito.
+
+\medskip
+
+$\bullet$ Vamos supor que $M \in Y(PAPV)$. Consequentemente, como a instância pertence à $Y(PAPV)$, temos que a simulação aceita $\varepsilon$ e $r(M) = M' \in Y(PT)$.
+
+\smallskip
+
+$\bullet$ Vamos supor que $M \in N(PAPV)$. Consequentemente, como a instância pertence à $N(PAPV)$, temos que a simulação retorna loop infinito ao receber a entrada $\varepsilon$ e $r(M) = M' \in N(PT)$.
+
+\medskip
+
+Como a redução feita tem Problemala da Totalidade como o problema alvo e Problema da Aceitação da Palavra Vazia, indecidível, como o problema fonte, temos que Problemala da Totalidade também, é indecidível.
+
+\pagebreak
+
+\begin{center}
+
+    \vspace*{-11mm}
+    \textbf{\large{Questão 3}}
+    \vspace*{-4.8mm}
+
+\end{center}
+
+\noindent\rule{\textwidth}{0.5pt}
+
+\bigskip
+
+Considere o seguinte problema de decisão para a elaboração da redução e para a resolução da questão:
+
+\medskip
+
+\begin{itemize}
+
+    \item Problema: Problema da Mesma Linguagem de Aceitação.
+    \item Entrada: um par $(M_1, M_2)$ onde $M_1$ e $M_2$ são máquinas de Turing sobre o mesmo alfabeto $\Sigma$.
+    \item Pergunta: ACEITA($M_1$) $=$ ACEITA($M_2$)?
+    
+\end{itemize}
+
+\medskip
+
+O Problema da Mesma Linguagem de Aceitação é decidível ou indecidível? Prove sua resposta com uma redução válida a partir de um problema válido.
+
+\bigskip
+
+\noindent\rule{\textwidth}{0.5pt}
+
+\bigskip
+
+Teorema: Problema da Mesma Linguagem de Aceitação, problema PMLA, é um problema indecidível. Usaremos o Problema da Aceitação Vazia.
+
+\medskip
+
+$r$: Problema da Aceitação Vazia $\Longrightarrow$ Problema da Mesma Linguagem de Aceitação, sendo que Problema da Aceitação-Vazia é indecidível.
+
+\medskip
+
+A redução $r$ recebe uma instância $M$ do Problema da Aceitação-Vazia, problema sabidamente indecidível, e retorna uma instância de Problema da Mesma Linguagem de Aceitação $r(M) = (M, M')$ tal que ACEITA($M') = \emptyset$.
+
+\medskip
+
+$\bullet$ Vamos supor que $M \in Y$(Aceitação-Vazia). Consequentemente, temos que ACEITA($M) = \emptyset$. Finalmente, temos que $(M, M') \in Y(PMLA)$, uma vez que ACEITA$(M') = \emptyset$, por construção.
+
+\smallskip
+
+$\bullet$ Vamos supor que $M \in N$(Aceitação-Vazia). Consequentemente, temos que ACEITA($M) \neq \emptyset$. Finalmente, como ACEITA($M') = \emptyset$, por construção, temos que $(M, M') \in N(PMLA)$.
+
+\medskip
+
+Como a redução feita tem  Problema da Mesma Linguagem de Aceitação como o problema alvo e o problema Problema da Aceitação Vazia, indecidível, como o problema fonte, temos que  Problema da Mesma Linguagem de Aceitação também é indecidível.
+
+\end{document}

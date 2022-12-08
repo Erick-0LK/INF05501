@@ -1,0 +1,119 @@
+operation clear(A){
+ 1: if zero A then goto 0 else goto 2
+ 2: do dec A goto 1
+}
+
+operation soma(A,B){
+  1: if zero B then goto 0 else goto 2
+  2: do dec B goto 3
+  3: do inc A goto 1
+}
+
+operation soma(A,B,C){
+  1: if zero B then goto 5 else goto 2
+  2: do dec B goto 3
+  3: do inc A goto 4
+  4: do inc C goto 1
+  5: if zero C then goto 0 else goto 6
+  6: do dec C goto 7
+  7: do inc B goto 5
+}
+
+operation load(A,B){
+  1: do clear(A) goto 2
+  2: do soma(A,B) goto 0
+}
+
+operation load(A,B,C){
+  1: do clear(A) goto 2
+  2: do soma(A,B,C) goto 0
+}
+
+operation subtrai(A,B,C){ 
+    1: do load(C,B) goto 2 
+    2: if zero C then goto 0 else goto 3 
+    3: do dec C goto 4 
+    4: do inc B goto 5 
+    5: do dec A goto 2
+}
+
+test maior_ou_igual(A,B,C,D,E){ 
+    1: do load(C,A,E) goto 2
+    2: do load(D,B,E) goto 3
+    3: if zero D then goto 4 else goto 5
+    4: do clear(C) goto true
+    5: if zero C then goto 6 else goto 7
+    6: do clear(D) goto false
+    7: do dec C goto 8
+    8: do dec D goto 3
+}
+
+operation div2(A,C){
+  1: do load(C,A) goto 2
+  2: if zero C then goto 0 else goto 3
+  3: do dec C goto 4
+  4: if zero C then goto 0 else goto 5
+  5: do dec C goto 6
+  6: do inc A goto 2
+}
+
+test divBy2(A,C){
+  1: do load(C,A) goto 2
+  2: if zero C then goto true else goto 3
+  3: do dec C goto 4
+  4: do inc A goto 5
+  5: if zero C then goto false else goto 6
+  6: do inc A goto 7
+  7: do dec C goto 2
+}
+
+// A operação primeiro converte o valor de 'a' do registrador C para o registrador A.
+
+operation primeiro(A,X,C){
+  1: do clear(A) goto 2
+  2: if divBy2(X,C) then goto 3 else goto 0
+  3: do div2(X,C) goto 4
+  4: do inc A goto 2
+}
+
+// A operação segundo converte o valor de 'b' do registrador C para o registrador B.
+
+operation segundo(B,X,C){
+  1: do clear(B) goto 2
+  2: do dec X goto 3
+  3: do div2(X,C) goto 4
+  4: do load(B,X,C) goto 0
+}
+
+// A operação de decodificação recebe o valor do registrador C, e então converte esse valor para a fórmula da questão em termos de 'a' e 'b', salvando os respectivos valores de 'a' e de 'b' no registrador A e no registrador B, preservando o valor original do registrador C e utilizando os registradores D e E como auxiliares. O valor zero não é decodificável de acordo com a fórmula.
+
+operation decodificacao(A,B,C,D,E){
+  1: do load(E,C,D) goto 2
+  2: do primeiro(A,C,D) goto 3
+  3: do segundo(B,C,D) goto 4
+  4: do load(C,E) goto 0
+}
+
+// A operação divisao divide o valor de dos registradores A e B, salvando o produto no registrador A e preservando o valor do registrador B.
+
+operation divisao(A,B,C,D,E,F){
+  1: if zero B then goto 2 else goto 3
+  2: do clear(A) goto 0
+  3: do load(C,A) goto 4
+  4: if maior_ou_igual(C,B,D,E,F) then goto 5 else goto 0
+  5: do subtrai(C,B,D) goto 6
+  6: do inc A goto 4
+}
+
+// A operação função 3A computa a função da questão, 2 * x * y, utilizando a decodificação formulada anteriormente.
+
+operation funcao3B(A,B){
+  1: do divisao(B,A,C,D,E,F) goto 2
+  2: do load(Y,B) goto 0
+}
+
+main{
+  1: do load(C,X) goto 2
+  2: do decodificacao(A,B,C,D,E) goto 3
+  3: do funcao3B(A,B) goto 0
+}

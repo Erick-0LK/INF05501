@@ -1,0 +1,17 @@
+// O teste divisível divisível por quatro retorna verdadeiro se o valor do registrador A é divisível por quatro e falso caso contrário.
+
+test divisivelPor4(A){
+  1: if zero A then goto true else goto 2
+  2: do dec A goto 3
+  3: if zero A then goto false else goto 4
+  4: do dec A goto 5
+  5: if zero A then goto false else goto 6
+  6: do dec A goto 7
+  7: if zero A then goto false else goto 8
+  8: do dec A goto 1 
+}
+
+main{
+ 1: if divisivelPor4(X) then goto 2 else goto 3
+ 2: do inc Y goto 4
+}

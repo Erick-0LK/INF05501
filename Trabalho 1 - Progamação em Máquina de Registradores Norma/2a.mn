@@ -1,0 +1,82 @@
+// A:=0 
+operation zerar(A) { 
+    1: if zero A then goto 0 else goto 2 
+    2: do dec A goto 1
+}
+
+// A:=A+B (soma destrutiva)
+operation soma(A,B){
+    1: if zero B then goto 0 else goto 2 
+    2: do dec B goto 3 
+    3: do inc A goto 1
+}
+
+// A:=A+B usando C (soma conservativa) 
+operation soma(A,B,C){
+    1: if zero B then goto 5 else goto 2 
+    2: do dec B goto 3 
+    3: do inc A goto 4 
+    4: do inc C goto 1 
+    5: if zero C then goto 0 else goto 6 
+    6: do dec C goto 7 
+    7: do inc B goto 5
+}
+
+// A:=B (atribuição destrutiva) 
+operation atribui(A,B){
+    1: do zerar(A) goto 2 
+    2: do soma(A,B) goto 0
+}
+
+// A:=B usando C (atribuição conservativa) 
+operation atribui(A,B,C){
+    1: do zerar(A) goto 2 
+    2: do soma(A,B,C) goto 0
+}
+
+// A:=A*B usando C e D (multiplicação conservativa) 
+operation multiplica(A,B,C,D){
+    1: do atribui(C,A) goto 2 
+    2: if zero C then goto 0 else goto 3 
+    3: do soma(A,B,D) goto 4 
+    4: do dec C goto 2
+}
+
+// A:=2*A usando B (multiplicação por 2 conservativa) 
+operation multplica2(A,B){ 
+    1: do atribui(B,A) goto 2 
+    2: if zero B then goto 0 else goto 3 
+    3: do dec B goto 4 
+    4: do inc A goto 5 
+    5: do inc A goto 2
+}
+
+// A:=2^B usando C (potenciação em 2 conservativa) 
+operation potencia2(A,B,C){
+    1: do zerar(A) goto 2
+    2: do inc A goto 3
+    3: do atribui(D,B,C) goto 4
+    4: if zero D then goto 0 else goto 5
+    5: do multplica2(A,C) goto 6
+    6: do dec D goto 4
+}
+
+// C:=2^A(2B + 1) usando C, D, E e F (codificação conservativa) 
+operation cod(A,B,C,D,E,F){
+    1: do potencia2(C,A,E) goto 2
+    2: do zerar(E) goto 3
+    3: do atribui(D,B,E) goto 4
+    4: do zerar(E) goto 5
+    5: do multplica2(D,E) goto 6
+    6: do inc D goto 7
+    7: do zerar(E) goto 8
+    8: do multiplica(C,D,E,F) goto 0
+}
+
+// A operação de codificação recebe o valor do registrador A e B, e então converte esse valor para a fórmula da questão, cod(a, b) = 2^a(2b + 1), para C, preservando o valor original dos registradores A e B e utilizando os registradores D, E e F como auxiliares.
+
+main {
+    1: do add A 5 goto 2 
+    2: do add B 7 goto 3 
+    3: do cod(A,B,Y,D,E,F) goto 0
+}

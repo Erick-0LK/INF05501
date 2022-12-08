@@ -1,0 +1,48 @@
+operation clear(A){
+ 1: if zero A then goto 0 else goto 2
+ 2: do dec A goto 1
+}
+
+operation soma(A,B,D){
+  1: if zero B then goto 5 else goto 2
+  2: do dec B goto 3
+  3: do inc A goto 4
+  4: do inc D goto 1
+  5: if zero D then goto 0 else goto 6
+  6: do dec D goto 7
+  7: do inc B goto 5
+}
+
+operation soma(A,B){
+  1: if zero B then goto 0 else goto 2
+  2: do dec B goto 3
+  3: do inc A goto 1
+}
+
+operation load(A,B,C){
+  1: do clear(A) goto 2
+  2: do soma(A,B,C) goto 0
+}
+
+operation load(A,B){
+  1: do clear(A) goto 2
+  2: do soma(A,B) goto 0
+}
+
+// A operação multiplicação multiplica o valor de dos registradores A e B, salvando o produto no registrador A e preservando o valor do registrador B.
+
+operation multiplicacao(A,B,C,D){
+  1: do load(C,A) goto 2
+  2: if zero C then goto 0 else goto 3
+  3: do soma(A,B,D) goto 4
+  4: do dec C goto 2
+}
+
+main {
+  1: do load(A,X,C) goto 2
+  2: do load(B,A,C) goto 3
+  3: do multiplicacao(A,B,C,D) goto 4
+  4: do soma(A,B) goto 5
+  5: do inc A goto 6
+  6: do load(Y,A) goto 0
+}

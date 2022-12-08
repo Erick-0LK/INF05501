@@ -1,0 +1,146 @@
+let
+
+--------------------------------------------------------------
+--------------------------------------------------------------
+--------------------------------------------------------------
+
+    true = \a b. a;
+    false = \a b. b;
+    if = \b e1 e2. b e1 e2;
+    not = \b. b false true;
+    and = \b1 b2. if b1 b2 false;
+    or = \b1 b2. if b1 true b2;
+    zero = \f x. x; -- pode-se usar 0 por praticidade
+    um = \f x. f x; -- 1
+    dois = \f x. f (f x); -- 2
+    tres = \f x. f (f (f x)); -- 3
+    succ = \n. \A B. A (n A B);
+    add = \n1 n2. n1 succ n2;
+    add2 = \n1 n2. \A B. n1 A (n2 A B);
+    mult = \n1 n2. n1 (\x. add n2 x) 0;
+    isZero = \n. n (\x. false) true;
+    isPos = \n. not (isZero n); 
+    pair = \a b. \c. c a b;
+    fst = \p. p true;
+    snd = \p. p false;
+    swap = \p. pair (snd p) (fst p);
+    shiftInc = \p. pair (snd p) (succ (snd p));
+    pred = \n. fst (n shiftInc (pair 0 0));
+    sub = \a b. b pred a;
+    menor = \a b. isPos (sub b a);
+    empty = \x. true;
+    cons = pair;
+    isEmpty = \l. l (\a b. false);
+    head = fst;
+    tail = snd;
+
+--------------------------------------------------------------
+--------------------------------------------------------------
+--------------------------------------------------------------
+
+    lessthan = \a. \b. isPos (sub b a);
+    greaterthan = \a. \b. isPos(sub a b);
+    lesserequal = \a. \b. not (greaterthan a b);
+    greaterequal = \a. \b. not (lessthan a b);
+    igual = \a. \b. (and (lesserequal a b) (greaterequal a b));
+
+--------------------------------------------------------------
+
+    polinomio = \a. \b. add2 (mult a a) (mult 3 b);
+
+--------------------------------------------------------------
+
+    Z = \X. \n. if (igual n 0) true (if (greaterthan n 4) (X (sub n 4)) (if (igual n 4) true false));
+    Y = \f.(\x.f(x x))(\x.f(x x));
+    multQuatro = Y Z;
+    multQuatro = Y Z;
+
+--------------------------------------------------------------
+
+    invFrac = \a. if (igual 0 (fst a)) (pair (fst a) (snd a)) (pair (snd a) (fst a));
+
+--------------------------------------------------------------
+
+   multFrac = \a b. pair (mult (fst a) (fst b)) (mult (snd a) (snd b));
+
+--------------------------------------------------------------
+
+   somaFrac = \a b. pair (add (mult (fst a) (snd b)) (mult (snd a) (fst b))) (mult (snd a) (snd b));
+   
+--------------------------------------------------------------
+
+    somaListaAux = \M. \lista. if (isEmpty lista) 0 (add (head lista) (M (tail lista)));
+    somaLista = Y somaListaAux;
+
+--------------------------------------------------------------
+
+    ZA = \X. \n. if (igual 0 n) 2 (if (igual 1 n) 1 (add (X (pred n)) (X (pred (pred n)))));
+    lucas = Y ZA;
+
+--------------------------------------------------------------
+--------------------------------------------------------------
+--------------------------------------------------------------
+
+------ Questão 1A --------------------------------------------
+
+------ igual 1 0 -> Falso
+------ igual 0 2 -> Falso
+------ igual 1 1 -> Verdadeiro
+------ igual 1 2 -> Falso
+
+------ Questão 1B --------------------------------------------
+
+------ polinomio 0 0 -> 0
+------ polinomio 2 0 -> 4
+------ polinomio 0 2 -> 6
+------ polinomio 1 1 -> 4
+------ polinomio 1 2 -> 7
+------ polinomio 2 1 -> 7
+
+------ Questão 1C --------------------------------------------
+
+------ multQuatro 0 -> Verdadeiro
+------ multQuatro 4 -> Verdadeiro
+------ multQuatro 8 -> Verdadeiro
+------ multQuatro 1 -> Falso
+
+------ Questão 1D --------------------------------------------
+
+------ invFrac (pair 0 1) -> (pair 0 1)
+------ invFrac (pair 1 0) -> (pair 0 1)
+------ invFrac (pair 1 2) -> (pair 2 1)
+------ invFrac (pair 2 1) -> (pair 1 2)
+
+------ Questão 1E --------------------------------------------
+
+------ multFrac (pair 1 1) (pair 0 0) -> (pair 0 0)
+------ multFrac (pair 1 2) (pair 2 2) -> (pair 2 4)
+------ multFrac (pair 1 2) (pair 3 4) -> (pair 3 8)
+
+------ Questão 1F --------------------------------------------
+
+------ somaFrac (pair 2 3) (pair 0 0) -> (pair 0 0)
+------ somaFrac (pair 1 2) (pair 3 4) -> (pair 10 8)
+
+------ Questão 1G --------------------------------------------
+
+------ somaLista empty -> 0
+------ somaLista (cons 1 (cons 2 (cons 3 empty))) -> 6
+------ somaLista (cons 5 (cons 10 (cons 3 empty))) -> 18
+
+------ Questão 1H --------------------------------------------
+
+------ lucas 0 -> 2
+------ lucas 1 -> 1
+------ lucas 2 -> 3
+------ lucas 2 -> 3
+------ lucas 3 -> 4
+------ lucas 4 -> 7
+
+--------------------------------------------------------------
+--------------------------------------------------------------
+--------------------------------------------------------------
+
+in
+
+  lucas 4
