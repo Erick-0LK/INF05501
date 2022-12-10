@@ -1,2 +1,1 @@
-*.math linguist-detectable=false
-*.latex linguist-detectable=false
+*.ma linguist-detectable=false
