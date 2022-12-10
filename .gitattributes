@@ -1,2 +1,2 @@
 * linguist-vendored
-*.Mathematica linguist-detectable=false
+*.latex linguist-detectable=true
